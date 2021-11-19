@@ -1,5 +1,23 @@
 {
   "dependencies": {
     "axios": "^0.24.0"
-  }
+  },
+  "name": "discord-online-listener",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RichardDorian/Discord-Online-listener.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RichardDorian/Discord-Online-listener/issues"
+  },
+  "homepage": "https://github.com/RichardDorian/Discord-Online-listener#readme",
+  "description": ""
 }
