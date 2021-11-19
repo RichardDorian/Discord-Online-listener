@@ -1,6 +1,6 @@
 // const config = require('./config.json');
 const config = {
-  checkInterval: 60000,
+  checkInterval: 15000,
   widgetJsonApi:
     'https://ptb.discord.com/api/guilds/850061046424797254/widget.json',
   ifttt: {
