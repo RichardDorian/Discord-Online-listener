@@ -16,67 +16,66 @@ const axios = require('axios').default;
 let lastError = null;
 
 async function checkIfOnline() {
-  try {
-    const { data } = await axios.get(config.widgetJsonApi);
-    /**
-     * @type {number}
-     */
-    const count = data.presence_count;
-    /**
-     * @type {Member[]}
-     */
-    const members = data.members;
-
-    /**
-     * @type {'00'|'01'|'02'|'10'|'11'|'12'|'20'|'21'|'22'}
-     */
-    const generated = `${count}${members.length}`;
-    switch (generated) {
-      case '00':
-      case '01':
-      case '02':
-      case '12':
-        // Impossible or nothing, see count-length.txt
-        break;
-      case '10':
-        sendNotification('One of them is invisible');
-        break;
-      case '11':
-        if (members[0].username !== config.realAccountName)
-          sendNotification('The other one is online');
-        break;
-      case '20':
-        sendNotification('Both are invisible');
-        break;
-      case '21':
-        // Online is the real one
-        if (members[0].username === config.realAccountName)
-          sendNotification('The other one is invisible');
-        else sendNotification('The other one is online');
-        break;
-      case '22':
-        sendNotification('Both are online');
-        break;
-      default:
-        break;
-    }
-  } catch (error) {
+  const { data } = await axios.get(config.widgetJsonApi).catch(() => {
     console.error(error);
     if (Date.now() > lastError.getMilliseconds() + 6 * 60 * 60 * 1000)
       sendNotification('An error occured while fetching data from Discord');
     lastError = new Date();
+  });
+
+  if (!data) return;
+
+  /**
+   * @type {number}
+   */
+  const count = data.presence_count;
+  /**
+   * @type {Member[]}
+   */
+  const members = data.members;
+
+  /**
+   * @type {'00'|'01'|'02'|'10'|'11'|'12'|'20'|'21'|'22'}
+   */
+  const generated = `${count}${members.length}`;
+  switch (generated) {
+    case '00':
+    case '01':
+    case '02':
+    case '12':
+      // Impossible or nothing, see count-length.txt
+      break;
+    case '10':
+      sendNotification('One of them is invisible');
+      break;
+    case '11':
+      if (members[0].username !== config.realAccountName)
+        sendNotification('The other one is online');
+      break;
+    case '20':
+      sendNotification('Both are invisible');
+      break;
+    case '21':
+      // Online is the real one
+      if (members[0].username === config.realAccountName)
+        sendNotification('The other one is invisible');
+      else sendNotification('The other one is online');
+      break;
+    case '22':
+      sendNotification('Both are online');
+      break;
+    default:
+      break;
   }
 }
 
 function sendNotification(message) {
-  try {
-    axios.post(
+  axios
+    .post(
       `https://maker.ifttt.com/trigger/${config.ifttt.event}/with/key/${config.ifttt.key}`,
       { value1: message }
-    );
-  } catch (error) {
-    console.error(error);
-  }
+    )
+    .catch(() => {});
 }
 
 sendNotification(
