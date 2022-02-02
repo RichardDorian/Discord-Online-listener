@@ -16,7 +16,7 @@ const axios = require('axios').default;
 let lastError = null;
 
 async function checkIfOnline() {
-  const { data } = await axios.get(config.widgetJsonApi).catch(() => {
+  const { data } = await axios.get(config.widgetJsonApi).catch((error) => {
     console.error(error);
     if (Date.now() > lastError.getMilliseconds() + 6 * 60 * 60 * 1000)
       sendNotification('An error occured while fetching data from Discord');
