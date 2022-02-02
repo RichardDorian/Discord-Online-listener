@@ -2,7 +2,7 @@
 const config = {
   checkInterval: 15000,
   widgetJsonApi:
-    'https://ptb.discord.com/api/guilds/850061046424797254/widget.json',
+    process.env.DISCORD_API,
   ifttt: {
     key: process.env.IFTTT_KEY,
     event: process.env.IFTTT_EVENT,
