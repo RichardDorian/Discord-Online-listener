@@ -31,16 +31,12 @@ async function checkIfOnline() {
      * @type {'00'|'01'|'02'|'10'|'11'|'12'|'20'|'21'|'22'}
      */
     const generated = `${count}${members.length}`;
-
-    console.log(count, members, generated);
-
     switch (generated) {
       case '00':
       case '01':
       case '02':
       case '12':
         // Impossible or nothing, see count-length.txt
-        console.log('Nothing');
         break;
       case '10':
         sendNotification('One of them is invisible');
