@@ -1,0 +1,28 @@
+All posibilites
+
+0 presence_count - 0 members
+-> Nothing
+
+0 presence_count - 1 members
+-> Impossible
+
+0 presence_count - 2 members
+-> Impossible
+
+1 presence_count - 0 members
+-> One is invisible
+
+1 presence_count - 1 members
+-> One is online - Check if its the user in the config
+
+1 presence_count - 2 members
+-> Impossible
+
+2 presence_count - 0 members
+-> Both are invisible
+
+2 presence_count - 1 members
+-> One invisible and one online - Check config username
+
+2 presence_count - 2 members
+-> Both are online
